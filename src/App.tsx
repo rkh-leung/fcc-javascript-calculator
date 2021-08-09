@@ -7,6 +7,12 @@ function App() {
     const [state, setState] = useState(initialState)
     const clearHandler = () => setState(initialState)
     const inputHandler = (e: React.BaseSyntheticEvent) => {
+        if (e.target.id === 'zero') {
+            if (state.length === 1) {
+                state.pop()
+                setState(prevState => [...prevState, +e.target.value])
+            }
+        }
         // switch (e.target.id) {
         //     case 'zero':
         //     case 'one':
