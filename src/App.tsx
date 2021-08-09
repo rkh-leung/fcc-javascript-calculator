@@ -7,6 +7,7 @@ function App() {
       <header className="App-header">
           FCC JavaScript Calculator
       </header>
+        <div id={'display'}>Display</div>
         <div className={'input-Display'}>
             <button className={'input-op'} id={'equals'}>{'\u003d'}</button>
             <button className={'input-op'} id={'add'}>{'\u002b'}</button>
