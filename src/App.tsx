@@ -1,13 +1,26 @@
 import React, { useState } from 'react'
 import './App.css'
 
+interface Counter {
+  add: number
+  subtract: number
+  multiply: number
+  divide: number
+}
+
 function App() {
   type stateType = number | string | symbol
   const initialState: stateType[] = [0]
+  const initialCounter: Counter = {
+    add: 0,
+    subtract: 0,
+    multiply: 0,
+    divide: 0,
+  }
   const [state, setState] = useState(initialState)
+  const [counter, setCounter] = useState(initialCounter)
   const clearHandler = () => setState(initialState)
   const inputHandler = (e: React.BaseSyntheticEvent) => {
-    console.log(e.target.className)
     if (e.target.className !== 'special') {
       if (state.length === 1 && (state[0] === 0 || state[0] === '0')) {
         state.pop()
@@ -21,11 +34,20 @@ function App() {
   }
 
   const calculateInput = (state: stateType[]) => {
-    for (let i = 0; i < state.length; i++) {
-      for (let j = i + 1; j < state.length - 1; j++) {
-        console.log(j)
-      }
-    }
+    const chunk = [...state]
+    const num1 = chunk.splice(
+      0,
+      chunk.findIndex((el) => el == '+')
+    )
+    chunk.shift()
+    console.log(chunk.join(''))
+    console.log(chunk)
+    // for (let i = 0; i < state.length; i++) {
+    //   for (let j = i + 1; j < state.length - 1; j++) {
+    //     console.log(j)
+    //   }
+    // }
+    clearHandler()
   }
 
   const displayState = (state: stateType[]) => {
@@ -40,7 +62,7 @@ function App() {
         <button
           className={'special'}
           id={'equals'}
-          onClick={inputHandler}
+          onClick={() => calculateInput(state)}
           value={'='}
         >
           {'\u003d'}
