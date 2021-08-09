@@ -9,7 +9,7 @@ function App() {
   const inputHandler = (e: React.BaseSyntheticEvent) => {
     console.log(e.target.className)
     if (e.target.className !== 'special') {
-      if (state.length === 1 && state[0] === 0) {
+      if (state.length === 1 && (state[0] === 0 || state[0] === '0')) {
         state.pop()
         setState((prevState) => [...prevState, e.target.value])
       } else {
@@ -19,6 +19,15 @@ function App() {
       // calculates total
     }
   }
+
+  const calculateInput = (state: stateType[]) => {
+    for (let i = 0; i < state.length; i++) {
+      for (let j = i + 1; j < state.length - 1; j++) {
+        console.log(j)
+      }
+    }
+  }
+
   const displayState = (state: stateType[]) => {
     console.log(state)
     return state.join('')
