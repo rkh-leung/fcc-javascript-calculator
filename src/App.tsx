@@ -15,7 +15,7 @@ function App() {
       } else {
         setState((prevState) => [...prevState, e.target.value])
       }
-    } else if (e.target.id === 'equals') {
+    } else {
       // calculates total
     }
   }
