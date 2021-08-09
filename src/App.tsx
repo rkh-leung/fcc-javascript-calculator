@@ -55,13 +55,13 @@ function App() {
             </header>
             <input id={'display'} value={displayState(state)}/>
             <div className={'input-Display'}>
-                <button className={'input-op'} id={'equals'}>{'\u003d'}</button>
-                <button className={'input-op'} id={'add'}>{'\u002b'}</button>
-                <button className={'input-op'} id={'subtract'}>{'\u2212'}</button>
-                <button className={'input-op'} id={'multiply'}>{'\u00D7'}</button>
-                <button className={'input-op'} id={'divide'}>{'\u00F7'}</button>
-                <button className={'input-op'} id={'decimal'}>{'\u002e'}</button>
-                <button className={'input-op'} id={'clear'} onClick={clearHandler}>{'\u0043'}</button>
+                <button className={'special'} id={'equals'}>{'\u003d'}</button>
+                <button className={'input-sym'} id={'add'}>{'\u002b'}</button>
+                <button className={'input-sym'} id={'subtract'}>{'\u2212'}</button>
+                <button className={'input-sym'} id={'multiply'}>{'\u00D7'}</button>
+                <button className={'input-sym'} id={'divide'}>{'\u00F7'}</button>
+                <button className={'input-sym'} id={'decimal'}>{'\u002e'}</button>
+                <button className={'input-sym'} id={'clear'} onClick={clearHandler}>{'\u0043'}</button>
                 <button className={'input-num'} id={'zero'}
                         onClick={inputHandler}
                         type={'submit'}
