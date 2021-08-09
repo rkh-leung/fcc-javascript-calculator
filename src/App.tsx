@@ -6,7 +6,7 @@ function App() {
     const [state, setState] = useState<stateType>(0)
     const clearHandler = () => setState(0)
     const inputHandler = (e: React.BaseSyntheticEvent) => {
-        setState(prevState  => {
+        setState(prevState => {
             if (prevState === 0) {
                 return Number(e.target.value)
             } else {
