@@ -71,54 +71,45 @@ function App() {
                 <button className={'input-num'}
                         id={'one'}
                         onClick={inputHandler}
-                        type={'submit'}
                         value={1}>1
                 </button>
                 <button className={'input-num'} id={'two'}
                         onClick={inputHandler}
-                        type={'submit'}
                         value={2}
                 >2
                 </button>
                 <button className={'input-num'} id={'three'}
                         onClick={inputHandler}
-                        type={'submit'}
                         value={3}
                 >3
                 </button>
                 <button className={'input-num'} id={'four'}
                         onClick={inputHandler}
-                        type={'submit'}
                         value={4}
                 >4
                 </button>
                 <button className={'input-num'} id={'five'}
                         onClick={inputHandler}
-                        type={'submit'}
                         value={5}
                 >5
                 </button>
                 <button className={'input-num'} id={'six'}
                         onClick={inputHandler}
-                        type={'submit'}
                         value={6}
                 >6
                 </button>
                 <button className={'input-num'} id={'seven'}
                         onClick={inputHandler}
-                        type={'submit'}
                         value={7}
                 >7
                 </button>
                 <button className={'input-num'} id={'eight'}
                         onClick={inputHandler}
-                        type={'submit'}
                         value={8}
                 >8
                 </button>
                 <button className={'input-num'} id={'nine'}
                         onClick={inputHandler}
-                        type={'submit'}
                         value={9}
                 >9
                 </button>
