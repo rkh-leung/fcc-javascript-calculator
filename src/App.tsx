@@ -7,11 +7,16 @@ function App() {
     const [state, setState] = useState(initialState)
     const clearHandler = () => setState(initialState)
     const inputHandler = (e: React.BaseSyntheticEvent) => {
-        if (e.target.id === 'zero') {
-            if (state.length === 1) {
+        console.log(e.target.className)
+        if (e.target.className === 'input-num') {
+            if (state.length === 1 && state[0] === 0) {
                 state.pop()
                 setState(prevState => [...prevState, +e.target.value])
+            } else {
+                setState(prevState => [...prevState, +e.target.value])
             }
+        } else if (e.target.id === 'equals') {
+            // calculates total
         }
         // switch (e.target.id) {
         //     case 'zero':
