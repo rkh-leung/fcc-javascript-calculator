@@ -4,7 +4,6 @@ import './App.css';
 function App() {
     type stateType = number | string
     const [state, setState] = useState<stateType>(0)
-    const [history, setHistory] = useState(0)
     const clearHandler = () => setState(0)
     const inputHandler = (e: React.BaseSyntheticEvent) => {
         setState(prevState  => {
@@ -20,7 +19,6 @@ function App() {
             <header className="App-header">
                 FCC JavaScript Calculator
             </header>
-            <div id={'result'}>{history}</div>
             <input id={'display'} value={state}/>
             <div className={'input-Display'}>
                 <button className={'input-op'} id={'equals'}>{'\u003d'}</button>
