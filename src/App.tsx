@@ -2,24 +2,47 @@ import React, {useState} from 'react';
 import './App.css';
 
 function App() {
-    type stateType = number | string
-    const [state, setState] = useState<stateType>(0)
-    const clearHandler = () => setState(0)
+    type stateType = number | string | symbol
+    const initialState: stateType[] = [0]
+    const [state, setState] = useState(initialState)
+    const clearHandler = () => setState(initialState)
     const inputHandler = (e: React.BaseSyntheticEvent) => {
-        setState(prevState => {
-            if (prevState === 0) {
-                return Number(e.target.value)
-            } else {
-                return String(prevState).concat(e.target.value)
-            }
-        })
+        // switch (e.target.id) {
+        //     case 'zero':
+        //     case 'one':
+        //     case 'two':
+        //     case 'three':
+        //     case 'four':
+        //     case 'five':
+        //     case 'six':
+        //     case 'seven':
+        //     case 'eight':
+        //     case 'nine':
+        //         if(initialState.length === 1) {
+        //             initialState.pop()
+        //             setState(prevState => [...prevState, +e.target.value])
+        //         }
+        // }
+
+        // setState(prevState => {
+        //     // @ts-ignore
+        //     if (prevState === initialState[0]) {
+        //         return Number(e.target.value)
+        //     } else {
+        //         return String(prevState).concat(e.target.value)
+        //     }
+        // })
+    }
+    const displayState = (state: stateType[]) => {
+        console.log(state)
+        return state.map(item => item.toString())
     }
     return (
         <div className="App">
             <header className="App-header">
                 FCC JavaScript Calculator
             </header>
-            <input id={'display'} value={state}/>
+            <input id={'display'} value={displayState(state)}/>
             <div className={'input-Display'}>
                 <button className={'input-op'} id={'equals'}>{'\u003d'}</button>
                 <button className={'input-op'} id={'add'}>{'\u002b'}</button>
