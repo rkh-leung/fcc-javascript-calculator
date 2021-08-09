@@ -35,18 +35,13 @@ function App() {
 
   const calculateInput = (state: stateType[]) => {
     const chunk = [...state]
-    const num1 = chunk.splice(
-      0,
-      chunk.findIndex((el) => el == '+')
-    )
+    const num1 = +chunk
+      .splice(
+        0,
+        chunk.findIndex((el) => el == '+')
+      )
+      .join('')
     chunk.shift()
-    console.log(chunk.join(''))
-    console.log(chunk)
-    // for (let i = 0; i < state.length; i++) {
-    //   for (let j = i + 1; j < state.length - 1; j++) {
-    //     console.log(j)
-    //   }
-    // }
     clearHandler()
   }
 
