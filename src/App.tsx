@@ -12,26 +12,20 @@ function App() {
         setState((prevState) => [...prevState, e.target.value])
       }
     }
-    if (e.target.className === 'input-sym') {
-      console.log('hello')
+    if (
+      e.target.className === 'input-sym' &&
+      (!isNaN(Number(state[state.length - 1])) || state[0] === '0')
+    ) {
+      setState((prevState) => [...prevState, e.target.value])
     }
-    // if (
-    //   e.target.className === 'input-sym' &&
-    //   isNaN(Number(state[state.length - 1]))
-    // ) {
-    //   setState((prevState) => [
-    //     prevState.slice(state.length - 1),
-    //     1,
-    //     e.target.value,
-    //   ])
-    // }
     if (
       state.length === 1 &&
       state[0] === '0' &&
       e.target.id !== 'decimal' &&
       e.target.className !== 'input-sym'
     ) {
-      setState((prevState) => prevState.splice(0, 1, e.target.value))
+      state.pop()
+      setState((prevState) => [...prevState, e.target.value])
     } else if (e.target.className === 'input-num') {
       setState((prevState) => [...prevState, e.target.value])
     }
