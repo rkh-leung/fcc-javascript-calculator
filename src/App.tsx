@@ -3,42 +3,45 @@ import './App.css'
 
 function App() {
   type stateType = number | string | symbol
-  const initialState: stateType[] = [0]
+  const initialState: stateType[] = ['0']
   const [state, setState] = useState(initialState)
   const clearState = () => setState(initialState)
   const inputHandler = (e: React.BaseSyntheticEvent) => {
-    if (e.target.className !== 'special') {
-      if (e.target.id === 'decimal') {
-        if (
-          state[state.length - 1] !== '.' &&
-          state[state.length - 2] !== '.'
-        ) {
-          setState((prevState) => [...prevState, e.target.value])
-        }
-      }
-      if (
-        state.length === 1 &&
-        (state[0] === 0 || state[0] === '0') &&
-        e.target.id !== 'decimal'
-      ) {
-        state.pop()
-        setState((prevState) => [...prevState, e.target.value])
-      } else if (
-        e.target.className === 'input-num' ||
-        e.target.className === 'input-sym'
-      ) {
+    if (e.target.id === 'decimal') {
+      if (state[state.length - 1] !== '.' && state[state.length - 2] !== '.') {
         setState((prevState) => [...prevState, e.target.value])
       }
     }
+    if (e.target.className === 'input-sym') {
+      console.log('hello')
+    }
+    // if (
+    //   e.target.className === 'input-sym' &&
+    //   isNaN(Number(state[state.length - 1]))
+    // ) {
+    //   setState((prevState) => [
+    //     prevState.slice(state.length - 1),
+    //     1,
+    //     e.target.value,
+    //   ])
+    // }
+    if (
+      state.length === 1 &&
+      state[0] === '0' &&
+      e.target.id !== 'decimal' &&
+      e.target.className !== 'input-sym'
+    ) {
+      setState((prevState) => prevState.splice(0, 1, e.target.value))
+    } else if (e.target.className === 'input-num') {
+      setState((prevState) => [...prevState, e.target.value])
+    }
+    console.log('state', state)
+    console.log('last item', state[state.length - 1])
   }
 
   const calculateInput = (state: stateType[]) => {
     let j = 0
     let newArr: stateType[] = []
-    const indexes = state
-      .map((el, idx) => (isNaN(Number(el)) ? idx : ''))
-      .filter(String)
-    console.log('idx', indexes)
     for (let i = 0; i < state.length; i++) {
       if (state[i] === '-' && isNaN(Number(state[i - 1]))) {
         newArr.push(state.slice(i, i + 1).join(''))
@@ -53,6 +56,8 @@ function App() {
     newArr.push(Number(state.slice(j, state.length).join(''))) // push number after the last math op to array
     clearState()
     setState([eval(newArr.join(''))]) // eval usage for convenience >>>EXTREMELY BAD for optimization/performance<<<
+    console.log('newArr', newArr)
+    console.log('final state', state)
   }
 
   const displayState = (state: stateType[]) => {
@@ -111,7 +116,7 @@ function App() {
         >
           {'\u002e'}
         </button>
-        <button className={'input-sym'} id={'clear'} onClick={clearState}>
+        <button className={'clear'} id={'clear'} onClick={clearState}>
           {'\u0043'}
         </button>
         <button
