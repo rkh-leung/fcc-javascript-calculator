@@ -23,13 +23,17 @@ function App() {
   const inputHandler = (e: React.BaseSyntheticEvent) => {
     switch (e.target.id) {
       case 'add':
-        return counter.add++
+        counter.add++
+        break
       case 'subtract':
-        return counter.subtract++
+        counter.subtract++
+        break
       case 'multiply':
-        return counter.multiply++
+        counter.multiply++
+        break
       case 'divide':
-        return counter.divide++
+        counter.divide++
+        break
     }
     if (e.target.className !== 'special') {
       if (state.length === 1 && (state[0] === 0 || state[0] === '0')) {
@@ -43,16 +47,24 @@ function App() {
     }
   }
 
-  const calculateInput = (state: stateType[]) => {
+  const calculateInput = (state: stateType[], counter: Counter) => {
     const chunk = [...state]
-    const num1 = +chunk
-      .splice(
-        0,
-        chunk.findIndex((el) => el == '+')
-      )
-      .join('')
-    chunk.shift()
+    let result = 0
+    if (counter.add !== 0) {
+      // run recursively by counter.add
+      const num1 = +chunk
+        .splice(
+          0,
+          chunk.findIndex((el) => el == '+')
+        )
+        .join('')
+      chunk.shift()
+      const num2 = +chunk.join('')
+      result = num1 + num2
+    }
     clearHandler()
+    console.log(result)
+    return result
   }
 
   const displayState = (state: stateType[]) => {
@@ -68,7 +80,7 @@ function App() {
         <button
           className={'special'}
           id={'equals'}
-          onClick={() => calculateInput(state)}
+          onClick={() => calculateInput(state, counter)}
           value={'='}
         >
           {'\u003d'}
