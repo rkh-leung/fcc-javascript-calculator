@@ -46,75 +46,54 @@ function App() {
     }
   }
 
-  const calculateInput = (state: stateType[], counter: Counter) => {
-    const chunk = [...state]
-    let result: number
-    let multiply = 0
-    let divide = 0
-    let add = 0
-    let subtract = 0
-    if (counter.multiply !== 0) {
-      // run recursively by counter.add
-      const num1 = +chunk
-        .splice(
-          0,
-          chunk.findIndex((el) => el === '*')
-        )
-        .join('')
-      chunk.shift()
-      const num2 = +chunk.join('')
-      multiply = num1 * num2
-    }
-    if (
-      counter.add !== 0 &&
-      counter.add ===
-        counter.add + counter.divide + counter.subtract + counter.multiply
-    ) {
-      const addArray = []
-      for (let i = 0; i < counter.add; i++) {
-        addArray[i] = +chunk
-          .splice(
-            0,
-            chunk.findIndex((el) => el === '+')
-          )
-          .join('')
-        chunk.shift()
+  const calculateInput = (state: stateType[]) => {
+    function getNumbers(state: stateType[]) {
+      let j = 0
+      let newArr = []
+      for (let i = 0; i < state.length; i++) {
+        if (isNaN(Number(state[i]))) {
+          newArr.push(Number(state.slice(j, i).join('')))
+          newArr.push(state.slice(i, i + 1).join(''))
+          j = i + 1 // skip op sign
+        }
       }
-      addArray.push(+chunk.join(''))
-      add = addArray.reduce(
-        (previousValue, currentValue) => previousValue + currentValue
-      )
+      newArr.push(Number(state.slice(j, state.length).join('')))
+      return newArr
     }
-    if (counter.subtract !== 0) {
-      // run recursively by counter.add
-      const num1 = +chunk
-        .splice(
-          0,
-          chunk.findIndex((el) => el === '-')
-        )
-        .join('')
-      chunk.shift()
-      const num2 = +chunk.join('')
-      add = num1 - num2
-    }
-    if (counter.divide !== 0) {
-      // run recursively by counter.add
-      const num1 = +chunk
-        .splice(
-          0,
-          chunk.findIndex((el) => el === '/')
-        )
-        .join('')
-      chunk.shift()
-      const num2 = +chunk.join('')
-      add = num1 / num2
-    }
-    console.log(add)
-    result = add + multiply + subtract + divide
+
+    console.log(getNumbers(state))
+
+    // let result: number
+    // let multiply = 0
+    // let divide = 0
+    // let add = 0
+    // let subtract = 0
+    // if (
+    //   counter.add !== 0 &&
+    //   counter.add ===
+    //     counter.add + counter.divide + counter.subtract + counter.multiply
+    // ) {
+    //   const addArray = []
+    //   for (let i = 0; i < counter.add; i++) {
+    //     addArray[i] = +chunk
+    //       .splice(
+    //         0,
+    //         chunk.findIndex((el) => el === '+')
+    //       )
+    //       .join('')
+    //     chunk.shift()
+    //   }
+    //   addArray.push(+chunk.join(''))
+    //   add = addArray.reduce(
+    //     (previousValue, currentValue) => previousValue + currentValue
+    //   )
+    // }
+    // console.log(add)
+    // result = add + multiply + subtract + divide
     clearCounter()
     clearState()
-    console.log(result)
-    return setState([String(result)])
+    // console.log(result)
+    // return setState([String(result)])
   }
 
   const displayState = (state: stateType[]) => {
@@ -130,7 +109,7 @@ function App() {
         <button
           className={'special'}
           id={'equals'}
-          onClick={() => calculateInput(state, counter)}
+          onClick={() => calculateInput(state)}
           value={'='}
         >
           {'\u003d'}
