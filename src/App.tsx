@@ -18,9 +18,19 @@ function App() {
     divide: 0,
   }
   const [state, setState] = useState(initialState)
-  const [counter, setCounter] = useState(initialCounter)
+  const [counter] = useState(initialCounter)
   const clearHandler = () => setState(initialState)
   const inputHandler = (e: React.BaseSyntheticEvent) => {
+    switch (e.target.id) {
+      case 'add':
+        return counter.add++
+      case 'subtract':
+        return counter.subtract++
+      case 'multiply':
+        return counter.multiply++
+      case 'divide':
+        return counter.divide++
+    }
     if (e.target.className !== 'special') {
       if (state.length === 1 && (state[0] === 0 || state[0] === '0')) {
         state.pop()
@@ -47,6 +57,7 @@ function App() {
 
   const displayState = (state: stateType[]) => {
     console.log(state)
+    console.log('counter', counter)
     return state.join('')
   }
   return (
