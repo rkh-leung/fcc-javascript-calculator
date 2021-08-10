@@ -43,15 +43,13 @@ function App() {
       } else {
         setState((prevState) => [...prevState, e.target.value])
       }
-    } else {
-      // calculates total
     }
   }
 
   const calculateInput = (state: stateType[], counter: Counter) => {
     const chunk = [...state]
-    let result = 0
-    let mutiply = 0
+    let result: number
+    let multiply = 0
     let divide = 0
     let add = 0
     let subtract = 0
@@ -65,7 +63,7 @@ function App() {
         .join('')
       chunk.shift()
       const num2 = +chunk.join('')
-      mutiply = num1 * num2
+      multiply = num1 * num2
     }
     if (counter.add !== 0) {
       // run recursively by counter.add
@@ -104,7 +102,7 @@ function App() {
       add = num1 / num2
     }
     console.log(add)
-    result = add + mutiply + subtract + divide
+    result = add + multiply + subtract + divide
     clearCounter()
     clearState()
     console.log(result)
