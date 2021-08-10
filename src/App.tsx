@@ -1,41 +1,12 @@
 import React, { useState } from 'react'
 import './App.css'
 
-interface Counter {
-  add: number
-  subtract: number
-  multiply: number
-  divide: number
-}
-
 function App() {
   type stateType = number | string | symbol
   const initialState: stateType[] = [0]
-  const initialCounter: Counter = {
-    add: 0,
-    subtract: 0,
-    multiply: 0,
-    divide: 0,
-  }
   const [state, setState] = useState(initialState)
-  const [counter, setCounter] = useState(initialCounter)
   const clearState = () => setState(initialState)
-  const clearCounter = () => setCounter(initialCounter)
   const inputHandler = (e: React.BaseSyntheticEvent) => {
-    switch (e.target.id) {
-      case 'add':
-        counter.add++
-        break
-      case 'subtract':
-        counter.subtract++
-        break
-      case 'multiply':
-        counter.multiply++
-        break
-      case 'divide':
-        counter.divide++
-        break
-    }
     if (e.target.className !== 'special') {
       if (state.length === 1 && (state[0] === 0 || state[0] === '0')) {
         state.pop()
@@ -63,42 +34,11 @@ function App() {
 
     console.log(getNumbers(state))
 
-    // let result: number
-    // let multiply = 0
-    // let divide = 0
-    // let add = 0
-    // let subtract = 0
-    // if (
-    //   counter.add !== 0 &&
-    //   counter.add ===
-    //     counter.add + counter.divide + counter.subtract + counter.multiply
-    // ) {
-    //   const addArray = []
-    //   for (let i = 0; i < counter.add; i++) {
-    //     addArray[i] = +chunk
-    //       .splice(
-    //         0,
-    //         chunk.findIndex((el) => el === '+')
-    //       )
-    //       .join('')
-    //     chunk.shift()
-    //   }
-    //   addArray.push(+chunk.join(''))
-    //   add = addArray.reduce(
-    //     (previousValue, currentValue) => previousValue + currentValue
-    //   )
-    // }
-    // console.log(add)
-    // result = add + multiply + subtract + divide
-    clearCounter()
     clearState()
-    // console.log(result)
-    // return setState([String(result)])
   }
 
   const displayState = (state: stateType[]) => {
     console.log(state)
-    console.log('counter', counter)
     return state.join('')
   }
   return (
