@@ -65,17 +65,25 @@ function App() {
       const num2 = +chunk.join('')
       multiply = num1 * num2
     }
-    if (counter.add !== 0) {
-      // run recursively by counter.add
-      const num1 = +chunk
-        .splice(
-          0,
-          chunk.findIndex((el) => el === '+')
-        )
-        .join('')
-      chunk.shift()
-      const num2 = +chunk.join('')
-      add = num1 + num2
+    if (
+      counter.add !== 0 &&
+      counter.add ===
+        counter.add + counter.divide + counter.subtract + counter.multiply
+    ) {
+      const addArray = []
+      for (let i = 0; i < counter.add; i++) {
+        addArray[i] = +chunk
+          .splice(
+            0,
+            chunk.findIndex((el) => el === '+')
+          )
+          .join('')
+        chunk.shift()
+      }
+      addArray.push(+chunk.join(''))
+      add = addArray.reduce(
+        (previousValue, currentValue) => previousValue + currentValue
+      )
     }
     if (counter.subtract !== 0) {
       // run recursively by counter.add
