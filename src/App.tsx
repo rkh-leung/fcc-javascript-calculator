@@ -18,23 +18,18 @@ function App() {
   }
 
   const calculateInput = (state: stateType[]) => {
-    function getNumbers(state: stateType[]) {
-      let j = 0
-      let newArr = []
-      for (let i = 0; i < state.length; i++) {
-        if (isNaN(Number(state[i]))) {
-          newArr.push(Number(state.slice(j, i).join('')))
-          newArr.push(state.slice(i, i + 1).join(''))
-          j = i + 1 // skip op sign
-        }
+    let j = 0
+    let newArr: stateType[] = []
+    for (let i = 0; i < state.length; i++) {
+      if (isNaN(Number(state[i]))) {
+        newArr.push(Number(state.slice(j, i).join('')))
+        newArr.push(state.slice(i, i + 1).join(''))
+        j = i + 1 // skip op sign
       }
-      newArr.push(Number(state.slice(j, state.length).join('')))
-      return newArr
     }
-
-    console.log(getNumbers(state))
-
+    newArr.push(Number(state.slice(j, state.length).join('')))
     clearState()
+    setState([eval(newArr.join(''))])
   }
 
   const displayState = (state: stateType[]) => {
