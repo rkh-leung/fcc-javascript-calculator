@@ -8,10 +8,25 @@ function App() {
   const clearState = () => setState(initialState)
   const inputHandler = (e: React.BaseSyntheticEvent) => {
     if (e.target.className !== 'special') {
-      if (state.length === 1 && (state[0] === 0 || state[0] === '0')) {
+      if (e.target.id === 'decimal') {
+        if (
+          state[state.length - 1] !== '.' &&
+          state[state.length - 2] !== '.'
+        ) {
+          setState((prevState) => [...prevState, e.target.value])
+        }
+      }
+      if (
+        state.length === 1 &&
+        (state[0] === 0 || state[0] === '0') &&
+        e.target.id !== 'decimal'
+      ) {
         state.pop()
         setState((prevState) => [...prevState, e.target.value])
-      } else {
+      } else if (
+        e.target.className === 'input-num' ||
+        e.target.className === 'input-sym'
+      ) {
         setState((prevState) => [...prevState, e.target.value])
       }
     }
@@ -29,7 +44,7 @@ function App() {
     }
     newArr.push(Number(state.slice(j, state.length).join('')))
     clearState()
-    setState([eval(newArr.join(''))])
+    setState([eval(newArr.join(''))]) // eval usage for convenience >>>EXTREMELY BAD<<<
   }
 
   const displayState = (state: stateType[]) => {
@@ -82,7 +97,7 @@ function App() {
           {'\u00F7'}
         </button>
         <button
-          className={'input-sym'}
+          className={'decimal'}
           id={'decimal'}
           onClick={inputHandler}
           value={'.'}
