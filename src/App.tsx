@@ -35,14 +35,22 @@ function App() {
   const calculateInput = (state: stateType[]) => {
     let j = 0
     let newArr: stateType[] = []
+    const indexes = state
+      .map((el, idx) => (isNaN(Number(el)) ? idx : ''))
+      .filter(String)
+    console.log('idx', indexes)
     for (let i = 0; i < state.length; i++) {
-      if (isNaN(Number(state[i]))) {
-        newArr.push(Number(state.slice(j, i).join('')))
+      if (state[i] === '-' && isNaN(Number(state[i - 1]))) {
         newArr.push(state.slice(i, i + 1).join(''))
-        j = i + 1 // skip op sign
+        j = i + 1
+      } else if (isNaN(Number(state[i]))) {
+        // if current index is a symbol
+        newArr.push(Number(state.slice(j, i).join(''))) // first number before math operator
+        newArr.push(state.slice(i, i + 1).join('')) // push math operator to array
+        j = i + 1 // update math op counter
       }
     }
-    newArr.push(Number(state.slice(j, state.length).join('')))
+    newArr.push(Number(state.slice(j, state.length).join(''))) // push number after the last math op to array
     clearState()
     setState([eval(newArr.join(''))]) // eval usage for convenience >>>EXTREMELY BAD for optimization/performance<<<
   }
