@@ -44,11 +44,10 @@ function App() {
     }
     newArr.push(Number(state.slice(j, state.length).join('')))
     clearState()
-    setState([eval(newArr.join(''))]) // eval usage for convenience >>>EXTREMELY BAD<<<
+    setState([eval(newArr.join(''))]) // eval usage for convenience >>>EXTREMELY BAD for optimization/performance<<<
   }
 
   const displayState = (state: stateType[]) => {
-    console.log(state)
     return state.join('')
   }
   return (
