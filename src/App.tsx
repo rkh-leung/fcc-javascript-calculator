@@ -18,8 +18,9 @@ function App() {
     divide: 0,
   }
   const [state, setState] = useState(initialState)
-  const [counter] = useState(initialCounter)
-  const clearHandler = () => setState(initialState)
+  const [counter, setCounter] = useState(initialCounter)
+  const clearState = () => setState(initialState)
+  const clearCounter = () => setCounter(initialCounter)
   const inputHandler = (e: React.BaseSyntheticEvent) => {
     switch (e.target.id) {
       case 'add':
@@ -50,21 +51,64 @@ function App() {
   const calculateInput = (state: stateType[], counter: Counter) => {
     const chunk = [...state]
     let result = 0
+    let mutiply = 0
+    let divide = 0
+    let add = 0
+    let subtract = 0
+    if (counter.multiply !== 0) {
+      // run recursively by counter.add
+      const num1 = +chunk
+        .splice(
+          0,
+          chunk.findIndex((el) => el === '*')
+        )
+        .join('')
+      chunk.shift()
+      const num2 = +chunk.join('')
+      mutiply = num1 * num2
+    }
     if (counter.add !== 0) {
       // run recursively by counter.add
       const num1 = +chunk
         .splice(
           0,
-          chunk.findIndex((el) => el == '+')
+          chunk.findIndex((el) => el === '+')
         )
         .join('')
       chunk.shift()
       const num2 = +chunk.join('')
-      result = num1 + num2
+      add = num1 + num2
     }
-    clearHandler()
+    if (counter.subtract !== 0) {
+      // run recursively by counter.add
+      const num1 = +chunk
+        .splice(
+          0,
+          chunk.findIndex((el) => el === '-')
+        )
+        .join('')
+      chunk.shift()
+      const num2 = +chunk.join('')
+      add = num1 - num2
+    }
+    if (counter.divide !== 0) {
+      // run recursively by counter.add
+      const num1 = +chunk
+        .splice(
+          0,
+          chunk.findIndex((el) => el === '/')
+        )
+        .join('')
+      chunk.shift()
+      const num2 = +chunk.join('')
+      add = num1 / num2
+    }
+    console.log(add)
+    result = add + mutiply + subtract + divide
+    clearCounter()
+    clearState()
     console.log(result)
-    return result
+    return setState([String(result)])
   }
 
   const displayState = (state: stateType[]) => {
@@ -125,7 +169,7 @@ function App() {
         >
           {'\u002e'}
         </button>
-        <button className={'input-sym'} id={'clear'} onClick={clearHandler}>
+        <button className={'input-sym'} id={'clear'} onClick={clearState}>
           {'\u0043'}
         </button>
         <button
