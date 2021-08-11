@@ -12,12 +12,13 @@ function App() {
         setState((prevState) => [...prevState, e.target.value])
       }
     }
-    if (
-      e.target.className === 'input-sym' &&
-      (!isNaN(Number(state[state.length - 1])) || state[0] === '0')
-    ) {
-      setState((prevState) => [...prevState, e.target.value])
+
+    if (e.target.className === 'input-sym') {
+      if (!isNaN(Number(state[state.length - 1]))) {
+        setState((prevState) => [...prevState, e.target.value])
+      }
     }
+
     if (
       state.length === 1 &&
       state[0] === '0' &&
