@@ -30,6 +30,16 @@ function App() {
       ) {
         console.log('subtract op exception even if last item is a symbol')
         setState((prevState) => [...prevState, e.target.value])
+      } else if (
+        isNaN(Number(state[state.length - 1])) &&
+        isNaN(Number(state[state.length - 2]))
+      ) {
+        console.log('Last TWO items were symbols, replace it')
+        setState((prevState) => {
+          const copy = [...prevState]
+          copy.splice(copy.length - 2, 2, e.target.value)
+          return copy
+        })
       } else if (isNaN(Number(state[state.length - 1]))) {
         console.log('Last item was a symbol, update it')
         setState((prevState) => {
