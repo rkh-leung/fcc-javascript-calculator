@@ -4,8 +4,11 @@ import './App.css'
 function App() {
   type stateType = number | string | symbol
   const initialState: stateType[] = ['0']
+
   const [state, setState] = useState(initialState)
+
   const clearState = () => setState(initialState)
+
   const inputHandler = (e: React.BaseSyntheticEvent) => {
     if (e.target.id === 'decimal') {
       if (state[state.length - 1] !== '.' && state[state.length - 2] !== '.') {
@@ -15,7 +18,25 @@ function App() {
 
     if (e.target.className === 'input-sym') {
       if (!isNaN(Number(state[state.length - 1]))) {
+        // Check if converted to number, last item in an array is NOT NaN
+        console.log('First math op. Last item is not symbol')
+        setState((prevState) => {
+          console.log('prevState', prevState)
+          return [...prevState, e.target.value]
+        })
+      } else if (
+        e.target.value === '-' &&
+        !isNaN(Number(state[state.length - 2]))
+      ) {
+        console.log('subtract op exception even if last item is a symbol')
         setState((prevState) => [...prevState, e.target.value])
+      } else if (isNaN(Number(state[state.length - 1]))) {
+        console.log('Last item was a symbol, update it')
+        setState((prevState) => {
+          const copy = [...prevState]
+          copy.splice(copy.length - 1, 1, e.target.value)
+          return copy
+        })
       }
     }
 
@@ -31,7 +52,7 @@ function App() {
       setState((prevState) => [...prevState, e.target.value])
     }
     console.log('state', state)
-    console.log('last item', state[state.length - 1])
+    console.log('event fired', e.target.value)
   }
 
   const calculateInput = (state: stateType[]) => {
